@@ -7,17 +7,17 @@ using namespace std;
   *Return: 0
   *The following code will help you to...
   *...Calcute the Average waiting time...
-  *...Using the Shortest Job First Scheduling Algorithm
+  *...Using the Shortest Job First Scheduling Algorithm (preemptive mode)
   */
 int main() {
 	int i, j, zero_found, processes_count;
 	i = j = zero_found = processes_count = 0;
 	double total = 0.0, accumulated_time = 0, arrival, burst, shortest_time = DBL_MAX;
-	vector<double> arrival_time, burst_time, waiting_times;
+	vector<double> arrival_time, burst_time, waiting_times, burst_copy;
 
 	cout<<"Howdy!!!"<<endl;
 	cout<<"* This program helps you to compute the average waiting time of a number of processes ..."<<endl;
-	cout<<" ... in a Shortest Job First (SJF) 'non_preemptive' fashion."<<endl;
+	cout<<" ... in a Shortest Job First (SJF) 'preemptive' mode."<<endl;
 	cout<<"* You will Enter the arrival time and burst time of each process."<<endl;
 	cout<<"* Time is in milliseconds."<<endl;
 
@@ -66,10 +66,14 @@ int main() {
 			}
 			i++;
 		}
-                accumulated_time += burst_time[j];
-		waiting_times.push_back(accumulated_time - burst_time[j] - arrival_time[j]);
-                burst_time.erase(burst_time.begin() + j);
-                arrival_time.erase(arrival_time.begin() +j);
+                accumulated_time++;
+		burst_time[j]--;
+		if (burst_time[j] == 0) {
+			waiting_times.push_back(accumulated_time - burst_copy[j] - arrival_time[j]);
+                	arrival_time.erase(arrival_time.begin() + j);
+			burst_copy.erase(burst_copy.begin() + j);
+			burst_time.erase(burst_time.begin() + j);
+		}
 	}
 
 	cout<<"The average waiting time is "<<total/processes_count<<" milliseconds."<<endl;
