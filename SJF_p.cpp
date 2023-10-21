@@ -76,6 +76,12 @@ int main() {
 			burst_time.erase(burst_time.begin() + j);
 		}
 	}
+	cout<<"The individual waiting times are: ";
+	for(auto k : waiting_times) {
+		cout<<k<<" ";
+		total += k;
+	}
+	cout<<endl;
 
 	cout<<"The average waiting time is "<<total/processes_count<<" milliseconds."<<endl;
 
