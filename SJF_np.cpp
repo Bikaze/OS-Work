@@ -13,7 +13,7 @@ using namespace std;
 int main() {
 	int i, j, zero_found, processes_count;
 	i = j = zero_found = processes_count = 0;
-	double total = 0.0, accumulated_time = 0, arrival, burst, shortest_time = DBL_MAX;
+	double total = 0.0, accumulated_time = 0, arrival, burst, shortest_time = DBL_MAX, arrived_first = DBL_MAX;
 	vector<double> arrival_time, burst_time, waiting_times;
 
 	cout<<"Howdy!!!"<<endl;
@@ -60,20 +60,34 @@ int main() {
 
 	while(arrival_time.size() > 0) {
 		i = 0;
+        	shortest_time = DBL_MAX;
 		while(i < arrival_time.size()) {
-			if (arrival_time[i] <= accumulated_time && burst_time[i] < shortest_time) {
-					shortest_time = burst_time[i];
+			if ((arrival_time[i] <= accumulated_time) && (burst_time[i] <= shortest_time)) {
+                    		if((burst_time[i] == shortest_time) && (arrival_time[i] >= arrived_first)) {
+                        
+                    		}else {
+                        		shortest_time = burst_time[i];
+                        		arrived_first = arrival_time[i];
 					j = i;
-			}
+			        }
+                    }
 			i++;
 		}
-                accumulated_time += burst_time[j];
+        	accumulated_time += burst_time[j];
 		waiting_times.push_back(accumulated_time - burst_time[j] - arrival_time[j]);
-                burst_time.erase(burst_time.begin() + j);
-                arrival_time.erase(arrival_time.begin() +j);
+        	burst_time.erase(burst_time.begin() + j);
+        	arrival_time.erase(arrival_time.begin() +j);
 	}
 
-	cout<<"The average waiting time is "<<total/processes_count<<" milliseconds."<<endl;
+    cout<<"Individual waiting times are: ";
 
-	return 0;
+    for (auto k : waiting_times) {
+        cout<<k<<" ";
+        total += k;
+    }
+    cout<<endl;
+
+    cout<<"The average waiting time is "<<total/processes_count<<" milliseconds."<<endl;
+
+    return 0;
 }
