@@ -13,7 +13,7 @@ using namespace std;
 int main() {
 	int i, j, zero_found, processes_count;
 	i = j = zero_found = processes_count = 0;
-	double total = 0.0, accumulated_time = 0, arrival, burst, shortest_time = DBL_MAX, arrived_first = DBL_MAX;
+	double total = 0.0, accumulated_time = 0, arrival, burst, shortest_time = DBL_MAX, arrived_first;
 	vector<double> arrival_time, burst_time, waiting_times;
 
 	cout<<"Howdy!!!"<<endl;
@@ -63,7 +63,7 @@ int main() {
         	shortest_time = DBL_MAX;
 		while(i < arrival_time.size()) {
 			if ((arrival_time[i] <= accumulated_time) && (burst_time[i] <= shortest_time)) {
-                    		if((burst_time[i] == shortest_time) && (arrival_time[i] >= arrived_first)) {
+                    		if((burst_time[i] == shortest_time) && (arrival_time[i] >= arrived_first) && (i > 0)) {
                         
                     		}else {
                         		shortest_time = burst_time[i];
