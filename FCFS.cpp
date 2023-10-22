@@ -10,7 +10,7 @@ int main(void) {
     
     cout<<"Howdy!!!"<<endl;
     cout<<"* This program helps you to compute the average waiting time of a number of processes ..."<<endl;
-    cout<<" ... in a First Come First Served (FCFS) fashion."<<endl;
+    cout<<" ... in a First Come First Served (FCFS) mode."<<endl;
     cout<<"* You will Enter the arrival time and burst time of each process."<<endl;
     cout<<"* Time is in milliseconds."<<endl;
 
