@@ -13,7 +13,7 @@ using namespace std;
 int main() {
 	int i, j, zero_found, processes_count;
 	i = j = zero_found = processes_count = 0;
-	double total = 0.0, accumulated_time = 0, arrival, burst, shortest_time = DBL_MAX;
+	double total = 0.0, accumulated_time = 0, arrival, burst, shortest_time = DBL_MAX, arrived_first;
 	vector<double> arrival_time, burst_time, waiting_times, burst_copy;
 
 	cout<<"Howdy!!!"<<endl;
@@ -57,21 +57,27 @@ int main() {
 	}
 
 	processes_count = arrival_time.size();
+    burst_copy = burst_time;
 
 	while(arrival_time.size() > 0) {
 		i = 0;
+        shortest_time = DBL_MAX;
 		while(i < arrival_time.size()) {
-			if (arrival_time[i] <= accumulated_time && burst_time[i] < shortest_time) {
+			if ((arrival_time[i] <= accumulated_time) && (burst_time[i] < shortest_time)) {
+                if((burst_time[i] == shortest_time) && (arrival_time[i] >= arrived_first) && (i > 0)){}
+                else {
 					shortest_time = burst_time[i];
+                    arrived_first = arrival_time[i];
 					j = i;
+                }
 			}
 			i++;
 		}
-                accumulated_time++;
+        accumulated_time++;
 		burst_time[j]--;
 		if (burst_time[j] == 0) {
 			waiting_times.push_back(accumulated_time - burst_copy[j] - arrival_time[j]);
-                	arrival_time.erase(arrival_time.begin() + j);
+            arrival_time.erase(arrival_time.begin() + j);
 			burst_copy.erase(burst_copy.begin() + j);
 			burst_time.erase(burst_time.begin() + j);
 		}
