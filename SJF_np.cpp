@@ -18,7 +18,7 @@ int main() {
 
 	cout<<"Howdy!!!"<<endl;
 	cout<<"* This program helps you to compute the average waiting time of a number of processes ..."<<endl;
-	cout<<" ... in a Shortest Job First (SJF) 'non_preemptive' fashion."<<endl;
+	cout<<" ... in a Shortest Job First (SJF) 'non_preemptive' mode."<<endl;
 	cout<<"* You will Enter the arrival time and burst time of each process."<<endl;
 	cout<<"* Time is in milliseconds."<<endl;
 
